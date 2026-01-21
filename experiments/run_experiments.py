@@ -5,17 +5,22 @@ This module contains additional experiments for evaluating the
 online learning controller under various conditions.
 """
 
+import os
+import sys
+
+# Add parent directory to path before importing other modules
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
 import numpy as np
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import os
-import sys
-
-# Add parent directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from src.simulation import run_experiment, run_comparison_study, run_robustness_study
+from src.thermal_system import ThermalSystem, ApproximateThermalModel
+from src.online_controller import OnlineLearningController
+from src.simulation import generate_reference_signal
+from src.disturbances import create_realistic_disturbance, GaussianNoise
 
 
 def run_learning_rate_sensitivity():
@@ -29,12 +34,6 @@ def run_learning_rate_sensitivity():
     
     for lr in learning_rates:
         print(f"\nTesting learning rate: {lr}")
-        
-        # Import and modify controller
-        from src.thermal_system import ApproximateThermalModel
-        from src.online_controller import OnlineLearningController
-        from src.simulation import generate_reference_signal, ThermalSystem
-        from src.disturbances import create_realistic_disturbance
         
         np.random.seed(42)
         n_steps = 500
@@ -111,11 +110,6 @@ def run_noise_adaptation_demo():
     print("\n" + "=" * 70)
     print("NOISE ADAPTATION DEMONSTRATION")
     print("=" * 70)
-    
-    from src.thermal_system import ThermalSystem, ApproximateThermalModel
-    from src.online_controller import OnlineLearningController
-    from src.simulation import generate_reference_signal
-    from src.disturbances import GaussianNoise
     
     np.random.seed(42)
     n_steps = 1500

@@ -19,6 +19,9 @@ Or import and use programmatically:
 """
 
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 from typing import Dict, List, Optional, Tuple
 import os
 import sys
@@ -421,8 +424,6 @@ def run_robustness_study(
         results[key] = np.array(results[key])
     
     # Plot robustness comparison
-    import matplotlib.pyplot as plt
-    
     fig, ax = plt.subplots(figsize=(10, 6))
     
     ax.errorbar(noise_levels, results['online_rmse'], yerr=results['online_rmse_std'],
@@ -528,7 +529,6 @@ def main():
                        bbox_inches='tight', dpi=150)
     
     print("\nSimulation completed successfully!")
-    import matplotlib.pyplot as plt
     plt.close('all')
 
 
